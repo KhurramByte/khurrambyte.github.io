@@ -1,0 +1,203 @@
+# ============================================
+# 🔐 SECURITY & PERFORMANCE CONFIGURATION
+# ============================================
+
+# ===== ENABLE REWRITE ENGINE =====
+RewriteEngine On
+
+# ===== FORCE HTTPS (Production) =====
+# Agar website live hai toh isko enable karein
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# ===== REDIRECT WWW TO NON-WWW =====
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# ===== REMOVE TRAILING SLASH =====
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [R=301,L]
+
+# ===== BLOCK ACCESS TO SENSITIVE FILES =====
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "(^#.*#|\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^(composer\.(json|lock)|package\.json|package-lock\.json|web\.config|yarn\.lock|\.env.*|\.git.*|\.editorconfig|\.eslint.*|\.prettier.*)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ===== PROTECT CONTACT.PHP =====
+<Files "contact.php">
+    # Allow only POST requests
+    <Limit GET>
+        Order deny,allow
+        Deny from all
+    </Limit>
+    # Allow POST from your domain only
+    SetEnvIfNoCase Referer "^https?://(www\.)?khurrambyte\.github\.io" local_ref
+    <Limit POST>
+        Order Deny,Allow
+        Deny from all
+        Allow from env=local_ref
+    </Limit>
+</Files>
+
+# ===== BLOCK BAD BOTS =====
+RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+RewriteCond %{HTTP_USER_AGENT} ^(java|curl|wget|python|ruby|perl) [NC]
+RewriteRule .* - [F,L]
+
+# ===== PREVENT DIRECT ACCESS TO ASSETS =====
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ===== PROTECT AGAINST XSS & CLICKJACKING =====
+<IfModule mod_headers.c>
+    # Prevent Clickjacking
+    Header always append X-Frame-Options "SAMEORIGIN"
+    
+    # Enable XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME Type Sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Referrer Policy
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+    
+    # Strict Transport Security (HSTS) - Only enable if using HTTPS
+    # Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    
+    # Content Security Policy (CSP)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+</IfModule>
+
+# ===== CACHE CONTROL FOR STATIC FILES =====
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Default cache: 1 week
+    ExpiresDefault "access plus 1 week"
+    
+    # Images: 1 month
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/ico "access plus 1 month"
+    
+    # CSS & JavaScript: 1 month
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    
+    # Fonts: 1 year
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    
+    # HTML: 1 day
+    ExpiresByType text/html "access plus 1 day"
+    
+    # PDF: 1 month
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>
+
+# ===== COMPRESSION (GZIP) =====
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, Text, XML
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml application/atom+xml
+    
+    # Remove browser bugs
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    Header append Vary User-Agent
+</IfModule>
+
+# ===== CORS HEADERS =====
+<IfModule mod_headers.c>
+    # Allow cross-origin requests for fonts
+    <FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# ===== ERROR DOCUMENTS =====
+ErrorDocument 400 /error.html
+ErrorDocument 401 /error.html
+ErrorDocument 403 /error.html
+ErrorDocument 404 /error.html
+ErrorDocument 500 /error.html
+ErrorDocument 502 /error.html
+ErrorDocument 504 /error.html
+
+# ===== PREVENT DIRECTORY LISTING =====
+Options -Indexes
+
+# ===== CUSTOM 404 PAGE =====
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /404.html [L]
+</IfModule>
+
+# ===== REDIRECT OLD URLS TO NEW (SEO) =====
+# Example: Agar koi purani URL change hui hai toh redirect karein
+# Redirect 301 /old-page.html /new-page.html
+
+# ===== PHP SETTINGS =====
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 20M
+    php_value post_max_size 20M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_value memory_limit 256M
+    php_value date.timezone "Asia/Karachi"
+</IfModule>
+
+# ===== DISABLE SERVER SIGNATURE =====
+ServerSignature Off
+
+# ===== PROTECT AGAINST DDOS (Rate Limiting) =====
+<IfModule mod_ratelimit.c>
+    SetOutputFilter RATE_LIMIT
+    SetEnv rate-limit 4096
+</IfModule>
+
+# ===== IP BLOCKING (Example) =====
+# Block specific IPs
+# Order Deny,Allow
+# Deny from 192.168.1.1
+# Deny from 10.0.0.0/24
+
+# ===== ALLOW ONLY SPECIFIC COUNTRIES (Example) =====
+# GeoIPEnable On
+# GeoIPDBFile /path/to/GeoIP.dat
+# SetEnvIf GEOIP_COUNTRY_CODE PK AllowCountry
+# Deny from all
+# Allow from env=AllowCountry
+
+# ===== CUSTOM HEADERS FOR SEO =====
+<IfModule mod_headers.c>
+    Header set X-Powered-By "Muhammad Khurram - Portfolio"
+    Header set X-Content-Security-Policy "default-src 'self'"
+</IfModule>
+
+# ============================================
+# 🚀 END OF CONFIGURATION
+# ============================================
