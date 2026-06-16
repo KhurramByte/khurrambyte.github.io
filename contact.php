@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 // ✅ YAHAN APNI REAL EMAIL LAGAYEIN
-$to_email = "khurram.dev@example.com";  // <-- Isko apni real email se replace karein
+$to_email = "mkhurram200386@gmail.com";  // <-- Isko apni real email se replace karein
 
 // Form data get karein
 $name = isset($_POST['name']) ? strip_tags(trim($_POST['name'])) : '';
