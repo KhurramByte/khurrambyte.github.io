@@ -1,9 +1,302 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>KhurramByte</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khurram | Full-Stack Developer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-    <h1>Hello World</h1>
+
+    <!-- ====== PRELOADER ====== -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- ====== NAVIGATION ====== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#home">Khurram<span>.</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ====== HOME SECTION ====== -->
+    <section id="home" class="home">
+        <div class="home-container">
+            <div class="home-content">
+                <span class="greeting">👋 Hello, I'm</span>
+                <h1 class="name">Khurram</h1>
+                <h2 class="typing-text">
+                    <span id="typed-text"></span>
+                    <span class="cursor">|</span>
+                </h2>
+                <p class="bio">
+                    Full-Stack Developer | AI Enthusiast | Open Source Contributor
+                </p>
+                <div class="social-icons">
+                    <a href="https://github.com/khurrambyte" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/khurrambyte" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/khurrambyte" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://youtube.com/@khurrambyte" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="home-buttons">
+                    <a href="#projects" class="btn primary">View Projects</a>
+                    <a href="#contact" class="btn secondary">Contact Me</a>
+                </div>
+            </div>
+            <div class="home-image">
+                <div class="image-wrapper">
+                    <div class="glow"></div>
+                    <div class="profile-placeholder">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ====== ABOUT SECTION ====== -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About <span>Me</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I'm a passionate <strong>Full-Stack Developer</strong> with a deep interest in 
+                        <strong>Artificial Intelligence</strong> and <strong>Machine Learning</strong>. 
+                        I love building scalable web applications and contributing to open-source projects.
+                    </p>
+                    <p>
+                        With a strong foundation in JavaScript, Python, and cloud technologies, 
+                        I strive to create solutions that make a difference.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">2+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">20+</span>
+                            <span class="stat-label">Projects Completed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Open Source Contributions</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn primary">Download CV</a>
+                </div>
+                <div class="about-image">
+                    <div class="about-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Clean Code</h3>
+                        <p>Write readable, maintainable code</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Fast Performance</h3>
+                        <p>Optimized for speed and efficiency</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure</h3>
+                        <p>Best practices for security</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== SKILLS SECTION ====== -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>My <span>Skills</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Frontend</h3>
+                    <div class="skill-item">
+                        <span>HTML5 / CSS3</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>JavaScript (ES6+)</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>React.js / Next.js</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Tailwind CSS</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 88%;"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-server"></i> Backend</h3>
+                    <div class="skill-item">
+                        <span>Node.js / Express</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Python / FastAPI</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>MongoDB / PostgreSQL</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 82%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>REST APIs / GraphQL</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 78%;"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-cloud"></i> Tools & Cloud</h3>
+                    <div class="skill-item">
+                        <span>Docker / Kubernetes</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>AWS / Firebase</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Git / GitHub Actions</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Linux / Bash</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PROJECTS SECTION ====== -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured <span>Projects</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI Chatbot</h3>
+                    <p>Intelligent conversational AI using NLP and deep learning</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>TensorFlow</span>
+                        <span>React</span>
+                    </div>
+                    <a href="#" class="btn small">View Project</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>E-Commerce Platform</h3>
+                    <p>Full-stack e-commerce with payment integration and admin panel</p>
+                    <div class="project-tags">
+                        <span>Node.js</span>
+                        <span>React</span>
+                        <span>MongoDB</span>
+                    </div>
+                    <a href="#" class="btn small">View Project</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Real-time data visualization dashboard with interactive charts</p>
+                    <div class="project-tags">
+                        <span>D3.js</span>
+                        <span>Express</span>
+                        <span>PostgreSQL</span>
+                    </div>
+                    <a href="#" class="btn small">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CONTACT SECTION ====== -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In <span>Touch</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>khurram@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Pakistan</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+92 300 0000000</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="Your Name" required />
+                    <input type="email" placeholder="Your Email" required />
+                    <input type="text" placeholder="Subject" />
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 <span>Khurram</span>. All Rights Reserved.</p>
+            <div class="footer-social">
+                <a href="https://github.com/khurrambyte" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/khurrambyte" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://twitter.com/khurrambyte" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
