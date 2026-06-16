@@ -25,7 +25,6 @@ hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
 });
 
-// Close menu on link click
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -35,9 +34,10 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
 // ===== TYPING EFFECT =====
 const texts = [
+    'PHP Laravel Developer',
+    'Vue.js Developer',
     'Full-Stack Developer',
-    'AI Enthusiast',
-    'Open Source Contributor',
+    'API Integration Expert',
     'Problem Solver'
 ];
 
@@ -60,7 +60,7 @@ function typeEffect() {
     let speed = isDeleting ? 50 : 100;
 
     if (!isDeleting && charIndex === currentText.length) {
-        speed = 2000; // Pause at end
+        speed = 2000;
         isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
@@ -73,29 +73,25 @@ function typeEffect() {
 
 typeEffect();
 
-// ===== SKILLS ANIMATION ON SCROLL =====
+// ===== SKILLS ANIMATION =====
 const skillBars = document.querySelectorAll('.skill-progress');
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.width = entry.target.style.width || '0%';
-            // Trigger animation by setting width
-            const targetWidth = entry.target.style.width;
+            const width = entry.target.style.width;
             entry.target.style.width = '0%';
             setTimeout(() => {
-                entry.target.style.width = targetWidth;
+                entry.target.style.width = width;
             }, 100);
         }
     });
 }, { threshold: 0.3 });
 
 skillBars.forEach(bar => {
-    // Store the original width
     const originalWidth = bar.style.width;
     bar.style.width = '0%';
     observer.observe(bar);
-    // Restore width after a delay if already visible
     setTimeout(() => {
         if (isElementInViewport(bar)) {
             bar.style.width = originalWidth;
@@ -113,14 +109,52 @@ function isElementInViewport(el) {
     );
 }
 
-// ===== CONTACT FORM =====
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+// ===== CONTACT FORM AJAX =====
+const contactForm = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+const submitBtn = document.getElementById('submitBtn');
+
+contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    alert('Thank you for your message! I will get back to you soon. 🚀');
-    this.reset();
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    formMessage.className = 'form-message';
+    formMessage.textContent = '';
+
+    const formData = new FormData(contactForm);
+    
+    try {
+        const response = await fetch('contact.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            formMessage.className = 'form-message success';
+            formMessage.textContent = result.message;
+            contactForm.reset();
+        } else {
+            formMessage.className = 'form-message error';
+            formMessage.textContent = result.message;
+        }
+    } catch (error) {
+        formMessage.className = 'form-message error';
+        formMessage.textContent = '❌ Network error. Please try again.';
+        console.error('Error:', error);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+        
+        setTimeout(() => {
+            formMessage.className = 'form-message';
+        }, 5000);
+    }
 });
 
-// ===== SMOOTH SCROLL FOR NAV LINKS =====
+// ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -134,7 +168,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== PARALLAX EFFECT ON HOME =====
+// ===== PARALLAX EFFECT =====
 window.addEventListener('scroll', () => {
     const home = document.querySelector('.home');
     const scrolled = window.scrollY;
@@ -143,4 +177,4 @@ window.addEventListener('scroll', () => {
     }
 });
 
-console.log('🚀 Khurram\'s Portfolio Loaded Successfully!');
+console.log('🚀 Muhammad Khurram\'s Portfolio Loaded Successfully!');
